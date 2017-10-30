@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
-import styled, { keyframes } from 'styled-components';
-import { bgpattern, github, linkedin, instagram} from '../assets'
-import { media, flipInX } from '../utils'
+import styled from 'styled-components';
+import { bgpattern, picture } from '../assets'
+import { media, flipInX, tada } from '../utils'
+import profile from './profile'
 
 const Wrapper = styled.div`
+  ${media.small`padding: 20px 20px;`}
+  ${media.medium`padding: 20px 80px;`}
+  ${media.full`padding: 40px 120px;`}
   with: 100vw;
   height: 100vh;
   background-color: #08AEEA;
@@ -11,21 +15,45 @@ const Wrapper = styled.div`
   background-size: 20px, cover;
   display: flex;
   align-items: center;
-   
-  ${media.full`padding: 40px 120px;`}
-  ${media.medium`padding: 20px 80px;`}
-  ${media.small`padding: 20px 20px;`}
+`
+
+const Logo = styled.div`
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  margin-top: -75px;
+  margin-left: -75px;
+  z-index:100;
+
+  > img {
+    border: 5px solid #fff;
+    border-radius: 50%;
+    height: 150px;
+    width: 150px;
+    &:hover {
+      animation-name: ${tada};
+      animation-duration: 0.5s;
+    }
+  }
 `
 
 const Card = styled.div`
+  position: relative;
+  max-width: 1000px;
   padding: 80px 40px 40px 40px;
   background: #ffffff;
   box-shadow: 8px 8px rgba(0,0,0,0.15);
   backface-visibility: visible !important;
-  animation-name: ${flipInX};
-  animation-duration: 0.8s;
+  animation: ${flipInX} 0.8s;
   > p {
     margin-bottom: 40px;
+  }
+  > a {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: #282B2E;
+    font-size: 0.6rem;    
   }
 
   ${media.small`font-size: 1rem;`}
@@ -61,22 +89,13 @@ const Icon = styled.div`
   }
 `
 
-let info = [{
-    title: "Github",
-    link: "https://github.com/carlosqsilva",
-    logo: github
-  },
-  {
-    title: "Linkedin",
-    link: "https://github.com/carlosqsilva",
-    logo: linkedin
-  },
-  {
-    title: "Instagram",
-    link: "https://github.com/carlosqsilva",
-    logo: instagram
-  }
-]
+const Profile = (props) => {
+  return (
+    <Logo title={props.name} >
+      <img src={picture} alt="" />
+    </Logo>
+  )
+}
 
 const SocialNetwork = (props) => {
   return (
@@ -101,16 +120,13 @@ class Home extends Component {
     return (
       <Wrapper>
         <Card>
-          <p>
-            Graduado pela UEPA, com diploma em Engenharia de Produção, atualmente faço Pos Graduação em Engenharia de Software.
-          </p>
-          <p>
-            Em meu tempo livre gosto de 
-          </p>
-          <p>
-            Say hello, or keep scrolling.
-          </p>
-        <SocialNetwork socials={info} />
+          <Profile name={profile.name}/>
+          {
+            profile.description.map((text, index) => <p key={index}>{text}</p>)
+          }
+          <p>Say hello, or keep scrolling.</p>
+          <SocialNetwork socials={profile.social} />
+          <a href={profile.repo}>Source</a>
         </Card>
       </Wrapper>
     );
