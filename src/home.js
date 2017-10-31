@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { bgpattern, picture } from '../assets'
-import { media, flipInX, tada } from '../utils'
+import { background, picture } from './assets'
+import { media, flipInX, tada } from './utils'
 import profile from './profile'
+import Player from './player'
 
 const Wrapper = styled.div`
   ${media.small`padding: 20px 20px;`}
@@ -11,7 +12,7 @@ const Wrapper = styled.div`
   with: 100vw;
   height: 100vh;
   background-color: #08AEEA;
-  background-image: url(${bgpattern}), linear-gradient(0deg, #08AEEA 0%, #2AF598 100%);
+  background-image: url(${background}), linear-gradient(0deg, #08AEEA 0%, #2AF598 100%);
   background-size: 20px, cover;
   display: flex;
   align-items: center;
@@ -128,6 +129,7 @@ class Home extends Component {
           <SocialNetwork socials={profile.social} />
           <a href={profile.repo}>Source</a>
         </Card>
+        <Player />
       </Wrapper>
     );
   }

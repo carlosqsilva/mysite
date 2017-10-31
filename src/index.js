@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Home from './sections/home';
+import Home from './home';
 import registerServiceWorker from './registerServiceWorker';
 import { injectGlobal } from 'styled-components'
 
 injectGlobal`
   @import url('https://fonts.googleapis.com/css?family=Space+Mono:400,700');
-
   *, *:before, *:after {
     box-sizing: border-box;
   }

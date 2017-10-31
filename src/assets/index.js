@@ -1,14 +1,23 @@
-import bgpattern from './bgpattern.svg';
-import github from './github.png';
-import instagram from './instagram.png';
-import linkedin from './linkedin.png';
-// import cogs from './floating-cogs.svg';
-import picture from './profile.JPG';
+import background from './bgpattern.svg'
+import github from './github.png'
+import instagram from './instagram.png'
+import linkedin from './linkedin.png'
+import picture from './profile.JPG'
+import previous from './previous.png'
+import next from './next.png'
+import play from './play.png'
+import pause from './pause.png'
+import soundcloud from './soundcloud.png'
 
 export {
-  bgpattern,
+  background,
   github,
   instagram,
   linkedin,
+  soundcloud,
   picture,
+  previous,
+  next,
+  play,
+  pause
 }

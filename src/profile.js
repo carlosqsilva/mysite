@@ -1,4 +1,4 @@
-import { github, linkedin, instagram } from '../assets'
+import { github, linkedin, instagram } from './assets'
 
 const profile = {
   name: "Carlos Henrique Silva",
