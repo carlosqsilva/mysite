@@ -45,29 +45,11 @@ const Info = styled.div`
   }
 `
 
-let songs = [
-  'https://soundcloud.com/ohbeclever/river',
-  'https://soundcloud.com/ohbeclever/next-to-you-album-version',
-  'https://soundcloud.com/thebrinksmusic/temporary-love',
-  'https://soundcloud.com/thebrinksmusic/hide-your-love',
-  'https://soundcloud.com/sanholobeats/light',
-  'https://soundcloud.com/whethan/savage',
-  'https://soundcloud.com/xylo100/alive',
-  'https://soundcloud.com/xylo100/afterlife',
-  'https://soundcloud.com/xylo100/iswfyou',
-  'https://soundcloud.com/veritemusic/somebody-else',
-  'https://soundcloud.com/veritemusic/underdressed',
-  'https://soundcloud.com/veritemusic/weekend1',
-  'https://soundcloud.com/mchnheart/stonecold',
-  'https://soundcloud.com/marshmellomusic/alone',
-  'https://soundcloud.com/marshmellomusic/movingon',
-  'https://soundcloud.com/anamanaguchi/wheelie'
-]
-
 class Player extends Component {
   constructor(props) {
     super(props)
     this.client_id = "x3d1i5dxXwTtUNJAy8djMDh7yYdxSZX0"
+    this.playlist = "https://soundcloud.com/carlos-silva-527/sets/website"
     this.state = {
       isPlaying: false,
       title: "",
@@ -76,9 +58,11 @@ class Player extends Component {
       userUrl: ""
     }
     this.song = null
+    this.songs = null
     this.audio = null
     
-    this.load = this.load.bind(this)
+    this.loadPlaylist = this.loadPlaylist.bind(this)
+    this.play = this.play.bind(this)
     this.playNext = this.playNext.bind(this)
     this.playPrevious = this.playPrevious.bind(this)
     this.toggle = this.toggle.bind(this)
@@ -87,45 +71,65 @@ class Player extends Component {
   componentDidMount() {
     this.audio = new Audio()
     this.audio.crossOrigin = 'anonymous'
-    this.song = Math.floor(Math.random() * songs.length)
-
-    this.load(this.song)
+    
+    this.loadPlaylist(() => this.play())
     this.audio.addEventListener("ended", this.playNext)
   }
 
-  load(song = 0) {
-    let url = `//api.soundcloud.com/resolve.json?url=${songs[song]}&client_id=${this.client_id}`
-    
+  loadPlaylist(callBack = null) {
+    let url = `//api.soundcloud.com/resolve.json?url=${this.playlist}&client_id=${this.client_id}`
     const _this = this
 
-    fetch(url).then(response => response.json())
-      .then(data => {
-
-        _this.setState({
-          titleUrl: data.permalink_url,
-          title: data.title,
-          userUrl: data.user.permalink_url,
-          user: data.user.username,
-          isPlaying: true
+    fetch(url).then(resp => resp.json())
+      .then( data => {
+        
+        _this.songs = data.tracks.map( track => {
+          return {
+            title: track.title,
+            titleUrl: track.permalink_url,
+            user: track.user.username,
+            userUrl: track.user.permalink_url,
+            stream: track.stream_url
+          }
         })
 
-        if (data.stream_url) {
-          _this.audio.src = `${data.stream_url}?client_id=${_this.client_id}`
+        if (callBack) {
+          callBack()
         }
-
-        _this.audio.play()
-        _this.song = song
       })
   }
 
+  play(song = null) {
+
+    if (!song) {
+      song = Math.floor(Math.random() * this.songs.length)
+    } 
+    
+    let currentSong = this.songs[song]
+    this.setState({
+      titleUrl: currentSong.titleUrl,
+      title: currentSong.title,
+      userUrl: currentSong.userUrl,
+      user: currentSong.user,
+      isPlaying: true
+    })
+
+    if (currentSong.stream) {
+      this.audio.src = `${currentSong.stream}?client_id=${this.client_id}`
+    }
+
+    this.audio.play()
+    this.song = song
+  }
+
   playNext() {
-    let nextSong = (this.song !== songs.length) ? this.song + 1 : 0
-    this.load(nextSong)
+    let nextSong = (this.song !== this.songs.length) ? this.song + 1 : 0
+    this.play(nextSong)
   }
 
   playPrevious() {
-    let previousSong = (this.song !== 0) ? this.song - 1 : songs.length - 1
-    this.load(previousSong)
+    let previousSong = (this.song !== 0) ? this.song - 1 : this.songs.length - 1
+    this.play(previousSong)
   }
 
   toggle() {
