@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import { media } from './utils'
 import { previous, play, pause, next, soundcloud } from './assets'
 
 const Wrapper = styled.div`
+  width: 80vw;
   position: absolute;
   bottom: 20px;
   left: 50%;
@@ -28,10 +30,12 @@ const Buttons = styled.div`
 `
 
 const Info = styled.div`
+  ${media.small`font-size: 0.8rem;`}
+  
   > a {
     text-decoration: none;
     text-transfrom: capitalize;
-    color: #fff;
+    color: #000;
     &:first-child {
       font-weight: 700;
     }
@@ -60,20 +64,43 @@ class Player extends Component {
     this.song = null
     this.songs = null
     this.audio = null
-    
+    this.volume = 1
+
     this.loadPlaylist = this.loadPlaylist.bind(this)
     this.play = this.play.bind(this)
     this.playNext = this.playNext.bind(this)
     this.playPrevious = this.playPrevious.bind(this)
     this.toggle = this.toggle.bind(this)
   }
-    
+
   componentDidMount() {
     this.audio = new Audio()
     this.audio.crossOrigin = 'anonymous'
-    
+
     this.loadPlaylist(() => this.play())
+
     this.audio.addEventListener("ended", this.playNext)
+
+    window.addEventListener("keydown", (e) => {
+      let key = e.key
+      if (key === " ") {
+        this.toggle()
+      }
+      if (key === 'ArrowRight') {
+        this.playNext()
+      }
+      if (key === "ArrowLeft") {
+        this.playPrevious()
+      }
+      if (key === "ArrowUp") {
+        this.volume = ((this.volume + 0.1) >= 1) ? 1 : this.volume + 0.1
+        this.audio.volume = this.volume
+      }
+      if (key === "ArrowDown") {
+        this.volume = ((this.volume - 0.1) <= 0) ? 0 : this.volume - 0.1
+        this.audio.volume = this.volume
+      }
+    })
   }
 
   loadPlaylist(callBack = null) {
@@ -81,9 +108,9 @@ class Player extends Component {
     const _this = this
 
     fetch(url).then(resp => resp.json())
-      .then( data => {
-        
-        _this.songs = data.tracks.map( track => {
+      .then(data => {
+
+        _this.songs = data.tracks.map(track => {
           return {
             title: track.title,
             titleUrl: track.permalink_url,
@@ -101,10 +128,10 @@ class Player extends Component {
 
   play(song = null) {
 
-    if (!song) {
+    if (song === null) {
       song = Math.floor(Math.random() * this.songs.length)
-    } 
-    
+    }
+
     let currentSong = this.songs[song]
     this.setState({
       titleUrl: currentSong.titleUrl,
@@ -123,7 +150,8 @@ class Player extends Component {
   }
 
   playNext() {
-    let nextSong = (this.song !== this.songs.length) ? this.song + 1 : 0
+    let nextSong = (this.song !== this.songs.length - 1) ? this.song + 1 : 0
+    console.log(`Current Music:${nextSong}`)
     this.play(nextSong)
   }
 
@@ -147,13 +175,13 @@ class Player extends Component {
     return (
       <Wrapper>
         <Buttons>
-          <button onClick={this.playPrevious} ><img src={previous} alt=""/></button>
-          <button onClick={this.toggle} ><img src={this.state.isPlaying ? pause : play} alt=""/></button>
-          <button onClick={this.playNext} ><img src={next} alt=""/></button>
+          <button onClick={this.playPrevious} ><img src={previous} alt="" /></button>
+          <button onClick={this.toggle} ><img src={this.state.isPlaying ? pause : play} alt="" /></button>
+          <button onClick={this.playNext} ><img src={next} alt="" /></button>
         </Buttons>
         <Info>
           <a href="https://soundcloud.com" >
-            <img src={soundcloud} alt=""/> SOUNDCLOUD - 
+            <img src={soundcloud} alt="" /> SOUNDCLOUD -
           </a>
           <a href={this.state.titleUrl}>{this.state.title}{" "}</a>
           by
