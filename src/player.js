@@ -4,14 +4,15 @@ import { media } from './utils'
 import { previous, play, pause, next, soundcloud } from './assets'
 
 const Wrapper = styled.div`
-  width: 80vw;
+  width: 90vw;
   position: absolute;
-  bottom: 20px;
+  bottom: 0px;
   left: 50%;
   color: #fff;
   text-align: center;
   transform: translateX(-50%);
 `
+
 const Buttons = styled.div`
   display: block;
   margin-botton: 10px;
@@ -22,16 +23,17 @@ const Buttons = styled.div`
     margin: 0 5px;
     padding: 0;
     cursor: pointer;
+
+    > img {
+      width: 20px;
+      height:20px;
+    }
   }
-  > button > img {
-    width: 20px;
-    height:20px;
-  }
+  
 `
 
 const Info = styled.div`
-  ${media.small`font-size: 0.8rem;`}
-  
+  font-size: 0.8rem;  
   > a {
     text-decoration: none;
     text-transfrom: capitalize;
@@ -39,14 +41,17 @@ const Info = styled.div`
     &:first-child {
       font-weight: 700;
     }
+
+    > img {
+      display: inline-block;
+      vertical-align: middle;
+      margin-bottom: 4px;
+      width: 25px;
+      height: 25px;
+    }
   }
-  > a > img {
-    display: inline-block;
-    vertical-align: middle;
-    margin-bottom: 4px;
-    width: 25px;
-    height: 25px;
-  }
+  ${media.medium`font-size: 1rem;`}
+  ${media.full`font-size: 1.2rem;`}
 `
 
 class Player extends Component {
@@ -150,13 +155,12 @@ class Player extends Component {
   }
 
   playNext() {
-    let nextSong = (this.song !== this.songs.length - 1) ? this.song + 1 : 0
-    console.log(`Current Music:${nextSong}`)
+    let nextSong = (this.song !== this.songs.length - 1) ? this.song + 1 : 0;
     this.play(nextSong)
   }
 
   playPrevious() {
-    let previousSong = (this.song !== 0) ? this.song - 1 : this.songs.length - 1
+    let previousSong = (this.song !== 0) ? this.song - 1 : this.songs.length - 1;
     this.play(previousSong)
   }
 

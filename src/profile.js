@@ -11,13 +11,8 @@ const age = (date = "1993-11-27") => {
 }
 
 const profile = {
-  name: "Carlos Henrique Silva",
-  repo: "https://github.com/carlosqsilva/mysite.git",
-  description: [
-    `Olá, meu nome é Carlos Silva, Tenho ${age()} anos e moro em Ananindeua, Pará.`,
-    "Sou graduado pela UEPA, com diploma em Engenharia de Produção, atualmente faço Pós Graduação em Engenharia de Software.",
-    "Em meu tempo livre gosto de desenvolver Scripts"
-  ],
+  name: "Carlos Silva",
+  age: age(),
   social: [
     {
       title: "Github",
