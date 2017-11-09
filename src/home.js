@@ -29,8 +29,8 @@ const Logo = styled.div`
   position: absolute;
   top: 0px;
   left: 50%;
-  margin-top: -65px;
-  margin-left: -65px;
+  margin-top: -60px;
+  margin-left: -60px;
   z-index:100;
   transition: all 0.3s ease-in-out;
   filter: drop-shadow(0px 0px 2px rgba(0,0,0,0.15));
@@ -44,8 +44,8 @@ const Logo = styled.div`
   > img {
     border: 5px solid #fff;
     border-radius: 50%;
-    height: 130px;
-    width: 130px;
+    height: 120px;
+    width: 120px;
   }
 
   ${media.medium`
@@ -73,7 +73,7 @@ const Card = styled.div`
   opacity: 0;
   perspective: 500px;
   max-width: 100%;
-  font-size: 1rem;
+  font-size: 0.9rem;
   border-radius: 4px;
   padding: 75px 30px 15px 30px;
   background: #ffffff;
