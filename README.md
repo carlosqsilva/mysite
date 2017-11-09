@@ -1,1 +1,1 @@
-Meu site pessoal feito em Reactjs.
+Meu site pessoal feito em Reactjs e Styled Components.
