@@ -180,7 +180,7 @@ const Home = () => {
         <Profile name={name} />
         <Card>
           <p>Olá, meu nome é <span>{name}</span>, tenho {age} anos e moro em Ananindeua, Pará.</p>
-          <p>Sou graduado pela UEPA, com diploma em Engenharia de Produção, atualmente faço Pós Graduação em Engenharia de Software.</p>
+          <p>Sou graduado pela UEPA, com diploma em Engenharia de Produção, atualmente faço Pós-Graduação em Engenharia de Software.</p>
           <p>Em meu tempo livre gosto de desenvolver scripts em Python e aplicações Web com Reactjs.</p>
           <SocialNetwork socials={social} />
         </Card>
