@@ -313,7 +313,7 @@ module.exports = {
           handler: 'cacheFirst'
         },
         {
-          urlPattern: /^https:\/\/cf\-media\.sandcdn\.com\//,
+          urlPattern: /^https:\/\/cf\-media\.sndcdn\.com\//,
           handler: 'cacheFirst'
         }
       ],
