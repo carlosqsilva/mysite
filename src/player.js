@@ -60,15 +60,17 @@ class Player extends Component {
     this.client_id = "x3d1i5dxXwTtUNJAy8djMDh7yYdxSZX0"
     this.playlist = "https://soundcloud.com/carlos-silva-527/sets/website"
     this.state = {
-      isPlaying: false,
+      isPlaying: true,
       title: "",
       titleUrl: "",
       user: "",
       userUrl: ""
     }
+
+    this.audio = new Audio()
+    this.audio.crossOrigin = 'anonymous'
     this.song = null
-    this.songs = null
-    this.audio = null
+    this.songs = null    
     this.volume = 1
 
     this.loadPlaylist = this.loadPlaylist.bind(this)
@@ -76,34 +78,37 @@ class Player extends Component {
     this.playNext = this.playNext.bind(this)
     this.playPrevious = this.playPrevious.bind(this)
     this.toggle = this.toggle.bind(this)
+    this.isPlaying = this.isPlaying.bind(this)
   }
 
-  componentDidMount() {
-    this.audio = new Audio()
-    this.audio.crossOrigin = 'anonymous'
-
+  componentDidMount() {    
     this.loadPlaylist(() => this.play())
 
     this.audio.addEventListener("ended", this.playNext)
+    this.audio.addEventListener("pause", this.isPlaying)    
+    this.audio.addEventListener("play", this.isPlaying)
 
     window.addEventListener("keydown", (e) => {
-      let key = e.key
-      if (key === " ") {
-        this.toggle()
-      }
-      if (key === 'ArrowRight') {
-        this.playNext()
-      }
-      if (key === "ArrowLeft") {
-        this.playPrevious()
-      }
-      if (key === "ArrowUp") {
-        this.volume = ((this.volume + 0.1) >= 1) ? 1 : this.volume + 0.1
-        this.audio.volume = this.volume
-      }
-      if (key === "ArrowDown") {
-        this.volume = ((this.volume - 0.1) <= 0) ? 0 : this.volume - 0.1
-        this.audio.volume = this.volume
+      switch(e.key) {
+        case " ":
+          this.toggle()
+          break;
+        case 'ArrowRight':
+          this.playNext()
+          break;
+        case "ArrowLeft":
+          this.playPrevious()
+          break;
+        case "ArrowUp":
+          this.volume = ((this.volume + 0.1) >= 1) ? 1 : this.volume + 0.1
+          this.audio.volume = this.volume
+          break;
+        case "ArrowDown":
+          this.volume = ((this.volume - 0.1) <= 0) ? 0 : this.volume - 0.1
+          this.audio.volume = this.volume
+          break;
+        default:
+          break;
       }
     })
   }
@@ -170,9 +175,12 @@ class Player extends Component {
     } else {
       this.audio.pause()
     }
-    this.setState(prevState => ({
-      isPlaying: !prevState.isPlaying
-    }))
+  }
+
+  isPlaying() {
+    this.setState({
+      isPlaying: !this.audio.paused
+    })
   }
 
   render() {
