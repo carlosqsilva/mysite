@@ -312,6 +312,10 @@ module.exports = {
           urlPattern: /^https:\/\/fonts\.googleapis\.com\//,
           handler: 'cacheFirst'
         },
+        {
+          urlPattern: /^https:\/\/cf\-media\.sandcdn\.com\//,
+          handler: 'cacheFirst'
+        }
       ],
       // For unknown URLs, fallback to the index page
       navigateFallback: publicUrl + '/index.html',

@@ -26,7 +26,7 @@ const profile = {
     },
     {
       title: "Instagram",
-      link: "https://github.com/carlosqsilva",
+      link: "https://www.instagram.com/carloshenj/",
       logo: instagram
     },
     {
