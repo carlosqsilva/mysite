@@ -313,7 +313,11 @@ module.exports = {
           handler: 'cacheFirst'
         },
         {
-          urlPattern: /^https:\/\/cf\-media\.sndcdn\.com\//,
+          urlPattern: /^https:\/\/cf-media\.sndcdn\.com\//,
+          handler: 'cacheFirst'
+        },
+        {
+          urlPattern: /^https:\/\/api.soundcloud\.com\/tracks\//,
           handler: 'cacheFirst'
         }
       ],
