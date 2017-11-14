@@ -1,0 +1,15 @@
+{
+  "short_name": "Carlos Silva",
+  "name": "Site Fodastico do Carlos",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#A13939",
+  "background_color": "#A13939"
+}
