@@ -32,7 +32,7 @@ const Logo = styled.div`
   margin-top: -60px;
   margin-left: -60px;
   z-index:100;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.1s ease-in-out;
   filter: drop-shadow(0px 0px 2px rgba(0,0,0,0.15));
   animation: ${rotate} 1.4s 0.2s;
 
@@ -124,7 +124,7 @@ const Icon = styled.div`
   height: 30px;
   width: 30px;
   margin: 0 10px;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.1s ease-in-out;
   &:hover {
     transform: translateY(-10px);
     filter: drop-shadow(8px 8px rgba(0,0,0,0.15));
@@ -171,7 +171,7 @@ const Home = () => {
   const {
     name,
     age,
-    social,
+    social
   } = profile
 
   return (

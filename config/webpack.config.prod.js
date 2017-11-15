@@ -314,6 +314,10 @@ module.exports = {
         {
           urlPattern: /^https:\/\/fonts\.googleapis\.com\//,
           handler: 'cacheFirst',
+        },
+        {
+          urlPattern: /^https:\/\/api\.soundcloud\.com\/resolve\.json\?/,
+          handler: 'cacheFirst',
         }
       ],
       // For unknown URLs, fallback to the index page

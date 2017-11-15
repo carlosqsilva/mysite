@@ -66,9 +66,7 @@ class Player extends Component {
       user: "",
       userUrl: ""
     }
-
-    this.audio = new Audio()
-    this.audio.crossOrigin = 'anonymous'
+    this.audio = null
     this.song = null
     this.songs = null    
     this.volume = 1
@@ -81,7 +79,9 @@ class Player extends Component {
     this.isPlaying = this.isPlaying.bind(this)
   }
 
-  componentDidMount() {    
+  componentDidMount() {
+    this.audio = new Audio()
+    this.audio.crossOrigin = 'anonymous'  
     this.loadPlaylist(() => this.play())
 
     this.audio.addEventListener("ended", this.playNext)
@@ -114,7 +114,7 @@ class Player extends Component {
   }
 
   loadPlaylist(callBack = null) {
-    let url = `//api.soundcloud.com/resolve.json?url=${this.playlist}&client_id=${this.client_id}`
+    let url = `https://api.soundcloud.com/resolve.json?url=${this.playlist}&client_id=${this.client_id}`
     const _this = this
 
     fetch(url).then(resp => resp.json())
