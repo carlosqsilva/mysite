@@ -156,7 +156,7 @@ const SocialNetwork = (props) => {
       {
         props.socials.map((social, i) =>
           <Icon key={i}>
-            <a title={social.title} href={social.link} target="_blank">
+            <a title={social.title} href={social.link} target="_blank" rel="noopener">
               <img src={social.logo} alt="" />
             </a>
           </Icon>
