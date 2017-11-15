@@ -1,58 +1,5 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
-import { media } from './utils'
 import { previous, play, pause, next, soundcloud } from './assets'
-
-const Wrapper = styled.div`
-  width: 90vw;
-  position: absolute;
-  bottom: 0px;
-  left: 50%;
-  color: #fff;
-  text-align: center;
-  transform: translateX(-50%);
-`
-
-const Buttons = styled.div`
-  display: block;
-  margin-botton: 10px;
-  > button {
-    border: none;
-    background: none;
-    outline: none;
-    margin: 0 5px;
-    padding: 0;
-    cursor: pointer;
-
-    > img {
-      width: 20px;
-      height:20px;
-    }
-  }
-  
-`
-
-const Info = styled.div`
-  font-size: 0.8rem;  
-  > a {
-    text-decoration: none;
-    text-transfrom: capitalize;
-    color: #000;
-    &:first-child {
-      font-weight: 700;
-    }
-
-    > img {
-      display: inline-block;
-      vertical-align: middle;
-      margin-bottom: 4px;
-      width: 25px;
-      height: 25px;
-    }
-  }
-  ${media.medium`font-size: 1rem;`}
-  ${media.full`font-size: 1.2rem;`}
-`
 
 class Player extends Component {
   constructor(props) {
@@ -185,21 +132,21 @@ class Player extends Component {
 
   render() {
     return (
-      <Wrapper>
-        <Buttons>
+      <div className="playerWrapper">
+        <div className="playerButtons">
           <button onClick={this.playPrevious} ><img src={previous} alt="" /></button>
           <button onClick={this.toggle} ><img src={this.state.isPlaying ? pause : play} alt="" /></button>
           <button onClick={this.playNext} ><img src={next} alt="" /></button>
-        </Buttons>
-        <Info>
+        </div>
+        <div className="playerInfo">
           <a href="https://soundcloud.com" >
             <img src={soundcloud} alt="" /> SOUNDCLOUD -
           </a>
           <a href={this.state.titleUrl}>{this.state.title}{" "}</a>
           by
           <a href={this.state.userUrl}>{" "}{this.state.user}</a>
-        </Info>
-      </Wrapper>
+        </div>
+      </div>
     )
   }
 }
