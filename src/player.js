@@ -30,7 +30,7 @@ class Player extends Component {
   componentDidMount() {
     this.audio = new Audio()
     this.audio.crossOrigin = 'anonymous'  
-    this.loadPlaylist(() => this.shouldPlay())
+    this.loadPlaylist()
 
     if (this.constrols) {
       navigator.mediaSession.playbackState = "Carregando media..."
@@ -45,16 +45,16 @@ class Player extends Component {
     this.audio.addEventListener("play", this.isPlaying)
   }
 
-  async shouldPlay() {
+  async shouldPlay(callBack = null) {
     // Conditions
     let battery = false
     let memory = false
     let connection = false
 
-    // don play if battery is charging or bellow 25%
+    // don play if battery is charging or bellow 20%
     if ("getBattery" in navigator) {
-      const batt = await navigator.getBattety()
-      if (!batt.charging && batt.level < 0.25) {
+      const batt = await navigator.getBattery()
+      if (!batt.charging && batt.level < 0.2) {
         battery = true
       }
     }
@@ -76,7 +76,8 @@ class Player extends Component {
     if (battery || memory || connection) {
       return null
     }
-    this.play()
+
+    this.audio.play()
   }
 
   loadPlaylist(callBack = null) {
@@ -97,9 +98,7 @@ class Player extends Component {
           }
         })
 
-        if (callBack) {
-          callBack()
-        }
+        _this.play()
       })
   }
 
@@ -135,8 +134,8 @@ class Player extends Component {
       })
     }
     
-    this.audio.play()
     this.song = song
+    this.shouldPlay()
   }
 
   playNext() {
