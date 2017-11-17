@@ -1,6 +1,7 @@
 *, *:before, *:after {
 	box-sizing: border-box;
 }
+
 html, body {
 	margin: 0;
 	padding: 0;
@@ -12,69 +13,14 @@ html, body {
 
 @import "keyframes.scss";
 
-$bp-phone: "screen and (min-width: 1024px)";
-$bp-tablet: "screen and (min-width: 769px)";
+$bp-phone: "screen and (min-width: 400px)";
+$bp-tablet: "screen and (min-width: 768px)";
 $bp-desktop: "screen and (min-width: 1024px)"; 
-
-.playerWrapper {
-	width: 90vw;
-	position: absolute;
-	bottom: 0px;
-	left: 50%;
-	color: #fff;
-	text-align: center;
-	transform: translateX(-50%);
-}
-
-.playerButtons {
-	display: block;
-	// margin-bottom: 10px;
-	> button {
-		border: none;
-		background: none;
-		outline: none;
-		margin: 0 5px;
-		padding: 0;
-		cursor: pointer;
-
-		> img {
-			width: 20px;
-			height:20px;
-		}
-	}
-}
-
-.playerInfo {
-	font-size: 0.8rem;  
-	> a {
-		text-decoration: none;
-		text-transform: capitalize;
-		color: #000;
-		
-		&:first-child {
-			font-weight: 700;
-		}
-
-		> img {
-			display: inline-block;
-			vertical-align: middle;
-			margin-bottom: 4px;
-			width: 25px;
-			height: 25px;
-		}
-	}
-	@media #{$bp-tablet} {
-		font-size: 1rem;
-	}
-	@media #{$bp-desktop} {
-		font-size: 1.2rem;
-	}
-}
 
 .homeWrapper {
 	width: 100vw;
   height: 100vh;
-  padding: 0px 10px 20px 10px;
+  padding: 10px 10px 0px 10px;
   background-image: url("../assets/background.svg"), linear-gradient(124deg, #A13939, #E75151, #FCC88A, #C2C57F);
   background-size: 200px, 800%;
   animation: rainbow 9s ease infinite;
@@ -114,6 +60,15 @@ $bp-desktop: "screen and (min-width: 1024px)";
     width: 120px;
   }
 
+  @media #{$bp-phone} {
+    margin-top: -65px;
+    margin-left: -65px;
+    > img {
+      height: 130px;
+      width: 130px;
+    }
+  }
+
   @media #{$bp-tablet} {
     margin-top: -70px;
     margin-left: -70px;
@@ -145,7 +100,7 @@ $bp-desktop: "screen and (min-width: 1024px)";
   max-width: 100%;
   font-size: 0.9rem;
   border-radius: 4px;
-  padding: 75px 30px 15px 30px;
+  padding: 65px 30px 15px 30px;
   background: #ffffff;
   box-shadow: 8px 8px rgba(0,0,0,0.25);
   animation: flipInX 0.4s 1s;
@@ -153,15 +108,19 @@ $bp-desktop: "screen and (min-width: 1024px)";
   > p {
     margin: 0;
     line-height: 1.6;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     > span {
       font-weight: 700;
     }
   }
+
+  @media #{$bp-phone} {
+    font-size: 1rem;
+  }
   
   @media #{$bp-tablet} {
     font-size: 1.5rem;
-    max-width: 800px;
+    max-width: 700px;
     padding: 90px 40px 50px 40px;
     p {
       margin-bottom: 30px;
@@ -209,5 +168,69 @@ $bp-desktop: "screen and (min-width: 1024px)";
   @media #{$bp-tablet} {
     height: 40px;
     width: 40px;
+  }
+}
+
+.playerWrapper {
+  width: 90vw;
+  margin-bottom: 10px;
+	position: absolute;
+	bottom: 0px;
+	left: 50%;
+	color: #fff;
+	text-align: center;
+	transform: translateX(-50%);
+}
+
+.playerButtons {
+	display: block;
+	> button {
+		border: none;
+		background: none;
+		outline: none;
+		margin: 0 5px;
+		padding: 0;
+		cursor: pointer;
+
+		> img {
+			width: 20px;
+			height:20px;
+		}
+  }
+  
+  @media #{$bp-tablet} {
+    > button > img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+}
+
+.playerInfo {
+  display: none;
+	font-size: 0.8rem;  
+	> a {
+		text-decoration: none;
+		text-transform: capitalize;
+		color: #000;
+		
+		&:first-child {
+			font-weight: 700;
+		}
+
+		> img {
+			display: inline-block;
+			vertical-align: middle;
+			margin-bottom: 4px;
+			width: 25px;
+			height: 25px;
+		}
+  }
+  @media #{$bp-phone} {
+    display: block;
+  }
+
+	@media #{$bp-tablet} {
+    font-size: 1.5rem;
   }
 }

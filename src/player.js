@@ -16,7 +16,7 @@ class Player extends Component {
     this.audio = null
     this.song = null
     this.songs = null
-    this.constrols = "mediaSession" in navigator
+    this.controls = "mediaSession" in navigator
 
     this.loadPlaylist = this.loadPlaylist.bind(this)
     this.play = this.play.bind(this)
@@ -32,7 +32,7 @@ class Player extends Component {
     this.audio.crossOrigin = 'anonymous'  
     this.loadPlaylist()
 
-    if (this.constrols) {
+    if (this.controls) {
       navigator.mediaSession.playbackState = "Carregando media..."
       navigator.mediaSession.setActionHandler('previoustrack', this.playPrevious)
       navigator.mediaSession.setActionHandler('play', this.toggle)
@@ -45,7 +45,7 @@ class Player extends Component {
     this.audio.addEventListener("play", this.isPlaying)
   }
 
-  async shouldPlay(callBack = null) {
+  async shouldPlay() {
     // Conditions
     let battery = false
     let memory = false
@@ -80,7 +80,7 @@ class Player extends Component {
     this.audio.play()
   }
 
-  loadPlaylist(callBack = null) {
+  loadPlaylist() {
     let url = `https://api.soundcloud.com/resolve.json?url=${this.playlist}&client_id=${this.client_id}`
     const _this = this
 
@@ -114,7 +114,7 @@ class Player extends Component {
       this.audio.src = `${currentSong.stream}?client_id=${this.client_id}`
     }
     
-    if (this.constrols) {
+    if (this.controls) {
       /* eslint-disable */
       navigator.mediaSession.metadata = new MediaMetadata({
         title: currentSong.title,
@@ -163,7 +163,7 @@ class Player extends Component {
   }
 
   render() {
-    if (!this.constrols) {
+    if (!this.controls) {
       return (
         <div className="playerWrapper">
           <div className="playerButtons">
@@ -173,7 +173,7 @@ class Player extends Component {
           </div>
           <div className="playerInfo">
             <a href="https://soundcloud.com" >
-              <img src={soundcloud} alt="" /> SOUNDCLOUD -
+              <img src={soundcloud} alt="" /> SOUNDCLOUD{" "}
             </a>
             <a href={this.state.titleUrl}>{this.state.title}{" "}</a>
             by
