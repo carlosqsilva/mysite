@@ -30,7 +30,7 @@ class Player extends Component {
   componentDidMount() {
     this.audio = new Audio()
     this.audio.crossOrigin = 'anonymous'  
-    this.loadPlaylist()
+    this.loadPlaylist(this.play)
 
     if (this.controls) {
       navigator.mediaSession.playbackState = "Carregando media..."
@@ -51,7 +51,7 @@ class Player extends Component {
     let memory = false
     let connection = false
 
-    // don play if battery is charging or bellow 20%
+    // dont play if battery is not charging and bellow 20%
     if ("getBattery" in navigator) {
       const batt = await navigator.getBattery()
       if (!batt.charging && batt.level < 0.2) {
@@ -72,15 +72,11 @@ class Player extends Component {
         connection = true
       }
     }
-
-    if (battery || memory || connection) {
-      return null
-    }
-
-    this.audio.play()
+    
+    return battery || memory || connection
   }
 
-  loadPlaylist() {
+  loadPlaylist(callback = null) {
     let url = `https://api.soundcloud.com/resolve.json?url=${this.playlist}&client_id=${this.client_id}`
     const _this = this
 
@@ -98,11 +94,14 @@ class Player extends Component {
           }
         })
 
-        _this.play()
+        if (callback) {
+          callback()
+        }
+
       })
   }
 
-  play(song = null) {
+  async play(song = null) {
 
     if (song === null) {
       song = Math.floor(Math.random() * this.songs.length)
@@ -134,8 +133,11 @@ class Player extends Component {
       })
     }
     
+    if (!await this.shouldPlay()) {
+      this.audio.play()
+    }
+
     this.song = song
-    this.shouldPlay()
   }
 
   playNext() {
@@ -163,26 +165,23 @@ class Player extends Component {
   }
 
   render() {
-    if (!this.controls) {
-      return (
-        <div className="playerWrapper">
-          <div className="playerButtons">
-            <button onClick={this.playPrevious} ><img src={previous} alt="" /></button>
-            <button onClick={this.toggle} ><img src={this.state.isPlaying ? pause : play} alt="" /></button>
-            <button onClick={this.playNext} ><img src={next} alt="" /></button>
-          </div>
-          <div className="playerInfo">
-            <a href="https://soundcloud.com" >
-              <img src={soundcloud} alt="" /> SOUNDCLOUD{" "}
-            </a>
-            <a href={this.state.titleUrl}>{this.state.title}{" "}</a>
-            by
-            <a href={this.state.userUrl}>{" "}{this.state.user}</a>
-          </div>
+    return (
+      <div className="playerWrapper">
+        <div className="playerButtons">
+          <button onClick={this.playPrevious} ><img src={previous} alt="" /></button>
+          <button onClick={this.toggle} ><img src={this.state.isPlaying ? pause : play} alt="" /></button>
+          <button onClick={this.playNext} ><img src={next} alt="" /></button>
         </div>
-      )
-    }
-    return null
+        <div className="playerInfo">
+          <a href="https://soundcloud.com" >
+            <img src={soundcloud} alt="" /> SOUNDCLOUD{" "}
+          </a>
+          <a href={this.state.titleUrl}>{this.state.title}{" "}</a>
+          by
+          <a href={this.state.userUrl}>{" "}{this.state.user}</a>
+        </div>
+      </div>
+    )
   }
 }
 

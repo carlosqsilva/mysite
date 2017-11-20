@@ -173,7 +173,7 @@ html, body {
     border: none;
     background: none;
     outline: none;
-    margin: 0 5px;
+    margin: 5px 5px 0px 5px;
     padding: 0;
     cursor: pointer; }
     .playerButtons > button > img {
