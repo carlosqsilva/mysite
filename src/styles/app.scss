@@ -20,11 +20,12 @@ $bp-desktop: "screen and (min-width: 1024px)";
 .homeWrapper {
 	width: 100vw;
   height: 100vh;
-  padding: 10px 10px 0px 10px;
+  padding: 0px 10px;
   background-image: url("../assets/background.svg"), linear-gradient(124deg, #A13939, #E75151, #FCC88A, #C2C57F);
   background-size: 200px, 800%;
   animation: rainbow 9s ease infinite;
   display: flex;
+  flex-direction: column;
   align-items: center;
 	justify-content: center;
 	
@@ -70,15 +71,6 @@ $bp-desktop: "screen and (min-width: 1024px)";
   }
 
   @media #{$bp-tablet} {
-    margin-top: -70px;
-    margin-left: -70px;
-    > img {
-      height: 140px;
-      width: 140px;
-    }
-  }
-
-  @media #{$bp-desktop} {
     margin-top: -75px;
     margin-left: -75px;
     > img {
@@ -86,10 +78,19 @@ $bp-desktop: "screen and (min-width: 1024px)";
       width: 150px;
     }
   }
+
+  @media #{$bp-desktop} {
+    margin-top: -80px;
+    margin-left: -80px;
+    > img {
+      height: 160px;
+      width: 160px;
+    }
+  }
 }
 
 .cardWrapper {
-	position: relative;
+  position: relative;
 	perspective: 1000px;
 }
 
@@ -129,11 +130,8 @@ $bp-desktop: "screen and (min-width: 1024px)";
 
   @media #{$bp-desktop} {
     font-size: 1.7rem;
-    padding: 90px 80px 60px 80px;
+    padding: 90px 80px 50px 80px;
     max-width: 1000px;
-    p {
-      margin-bottom: 40px;
-    }
   }
 }
 
@@ -173,13 +171,16 @@ $bp-desktop: "screen and (min-width: 1024px)";
 
 .playerWrapper {
   width: 90vw;
-  margin-bottom: 10px;
-	position: absolute;
+	position: fixed;
 	bottom: 0px;
 	left: 50%;
 	color: #fff;
 	text-align: center;
-	transform: translateX(-50%);
+  transform: translateX(-50%);
+  
+  @media (display-mode: standalone) {
+    display: none;
+  }
 }
 
 .playerButtons {
@@ -200,8 +201,8 @@ $bp-desktop: "screen and (min-width: 1024px)";
   
   @media #{$bp-tablet} {
     > button > img {
-      width: 30px;
-      height: 30px;
+      width: 25px;
+      height: 25px;
     }
   }
 }
