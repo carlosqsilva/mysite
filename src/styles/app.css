@@ -6,25 +6,38 @@ html, body {
   padding: 0;
   font-family: "Space Mono", monospace, sans-serif;
   font-variant-ligatures: no-common-ligatures;
-  font-size: 1em;
-  color: #282B2E; }
+  font-size: 16px; }
+
+#root {
+  display: grid;
+  grid-template-rows: 80vh auto; }
 
 @keyframes rotate {
   0% {
     filter: opacity(0%);
-    transform: scale(0.3) rotate(-30deg); }
+    transform: scale(0) rotate(-30deg); }
   50% {
-    filter: opacity(80%);
+    filter: opacity(60%);
     transform: scale(1.4) rotate(30deg); }
   100% {
     filter: opacity(100%);
     transform: scale(1) rotate(360deg); } }
 
-@keyframes rainbow {
-  0%, 100% {
-    background-position: 0px 0px, 0% 0%; }
-  50% {
-    background-position: 0px 0px, 100% 100%; } }
+@keyframes shake {
+  0% {
+    transform: scale(1) skew(1deg) translate(-0.9px, 0); }
+  15% {
+    transform: scale(1) skew(-1deg) translate(0, 0.9px); }
+  30% {
+    transform: scale(1) skew(0deg) translate(-0.9px, 0.9px); }
+  45% {
+    transform: scale(1) skew(1deg) translate(0.9px, 0); }
+  60% {
+    transform: scale(1) skew(-1deg) translate(-0.9px, -0.9px); }
+  75% {
+    transform: scale(1) skew(0deg) translate(0px, -0.9px); }
+  90% {
+    transform: scale(1) skew(1deg) translate(-0.9px, -0.9px); } }
 
 @keyframes flipInX {
   0% {
@@ -35,100 +48,55 @@ html, body {
     transform: rotateX(0deg); } }
 
 .homeWrapper {
-  width: 100vw;
-  height: 100vh;
-  padding: 0px 10px;
-  background-image: url("../assets/background.svg"), linear-gradient(124deg, #A13939, #E75151, #FCC88A, #C2C57F);
-  background-size: 200px, 800%;
-  animation: rainbow 9s ease infinite;
+  display: grid;
+  grid-template-columns: minmax(10px, 1fr) minmax(300px, 800px) minmax(10px, 1fr);
+  grid-template-areas: ".   card    .";
+  background-color: #283e56;
+  background-image: url("../assets/bg_01.svg");
+  background-size: 200px;
+  box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.4);
+  z-index: 50; }
+
+.cardWrapper {
+  grid-area: card;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  justify-content: center; }
-  @media screen and (min-width: 768px) {
-    .homeWrapper {
-      padding: 20px 20px; } }
-  @media screen and (min-width: 1024px) {
-    .homeWrapper {
-      padding: 20px 100px; } }
+  perspective: 1000px; }
 
 .profilePicture {
-  position: absolute;
-  top: 0px;
-  left: 50%;
-  margin-top: -60px;
-  margin-left: -60px;
   z-index: 100;
   transition: all 0.1s ease-in-out;
   filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.15));
-  animation: rotate 1.4s 0.2s; }
+  animation: rotate 1.4s 0.2s;
+  border: 5px solid #fff;
+  border-radius: 50%;
+  --size: calc(6rem + 4vw);
+  width: var(--size);
+  height: auto;
+  margin-bottom: calc(-1* var(--size) / 2); }
   .profilePicture:hover {
     transform: translateY(-10px);
     filter: drop-shadow(5px 10px 2px rgba(0, 0, 0, 0.15)); }
-  .profilePicture > img {
-    border: 5px solid #fff;
-    border-radius: 50%;
-    height: 120px;
-    width: 120px; }
-  @media screen and (min-width: 400px) {
-    .profilePicture {
-      margin-top: -65px;
-      margin-left: -65px; }
-      .profilePicture > img {
-        height: 130px;
-        width: 130px; } }
-  @media screen and (min-width: 768px) {
-    .profilePicture {
-      margin-top: -75px;
-      margin-left: -75px; }
-      .profilePicture > img {
-        height: 150px;
-        width: 150px; } }
-  @media screen and (min-width: 1024px) {
-    .profilePicture {
-      margin-top: -80px;
-      margin-left: -80px; }
-      .profilePicture > img {
-        height: 160px;
-        width: 160px; } }
-
-.cardWrapper {
-  position: relative;
-  perspective: 1000px; }
 
 .card {
   transform-origin: top;
   transform: rotateX(-80deg);
   opacity: 0;
-  max-width: 100%;
-  font-size: 0.9rem;
-  border-radius: 4px;
-  padding: 65px 30px 15px 30px;
-  background: #ffffff;
-  box-shadow: 8px 8px rgba(0, 0, 0, 0.25);
   animation: flipInX 0.4s 1s;
-  animation-fill-mode: forwards; }
+  animation-fill-mode: forwards;
+  font-size: calc(80% + 0.8vw);
+  padding: 3.5em 1.2em 1.5em 1.2em;
+  border-radius: 4px;
+  background: #ffffff;
+  box-shadow: 8px 8px rgba(0, 0, 0, 0.25); }
   .card > p {
     margin: 0;
-    line-height: 1.6;
-    margin-bottom: 10px; }
+    line-height: 1.4em;
+    margin-bottom: 1em; }
     .card > p > span {
       font-weight: 700; }
-  @media screen and (min-width: 400px) {
-    .card {
-      font-size: 1rem; } }
-  @media screen and (min-width: 768px) {
-    .card {
-      font-size: 1.5rem;
-      max-width: 700px;
-      padding: 90px 40px 50px 40px; }
-      .card p {
-        margin-bottom: 30px; } }
-  @media screen and (min-width: 1024px) {
-    .card {
-      font-size: 1.7rem;
-      padding: 90px 80px 50px 80px;
-      max-width: 1000px; } }
 
 .socialWrapper {
   display: flex;
@@ -137,27 +105,103 @@ html, body {
   .socialWrapper > span {
     display: block;
     height: 1px;
-    border-bottom: 1px dotted #282B2E;
+    border-bottom: 2px dashed #282B2E;
     flex: 1; }
 
 .socialIcons {
-  height: 30px;
-  width: 30px;
-  margin: 0 10px;
-  transition: all 0.1s ease-in-out; }
+  height: auto;
+  width: calc(1.5rem + 2%);
+  margin: 0 10px; }
   .socialIcons:hover {
-    transform: translateY(-10px);
-    filter: drop-shadow(8px 8px rgba(0, 0, 0, 0.15)); }
-  .socialIcons > a > img {
+    animation: shake 200ms infinite; }
+  .socialIcons > img {
     height: 100%;
     width: 100%; }
-  @media screen and (min-width: 768px) {
-    .socialIcons {
-      height: 40px;
-      width: 40px; } }
+
+.projectWrapper {
+  display: grid;
+  grid-template-columns: minmax(10px, 1fr) minmax(200px, 1000px) minmax(10px, 1fr);
+  grid-template-rows: 140px auto 120px;
+  grid-template-areas: ".  p1      ." ".  project ." ".  p2      ." ".  other   .";
+  background-color: #FDFDFD;
+  background-image: url("../assets/bg_03.svg");
+  background-size: 50px; }
+  .projectWrapper > .p1 {
+    grid-area: p1; }
+  .projectWrapper > .p2 {
+    grid-area: p2; }
+  .projectWrapper .p1, .projectWrapper .p2 {
+    font-size: 1.6rem;
+    display: inline-flex;
+    align-items: center; }
+
+.cardProject {
+  grid-area: project;
+  display: grid;
+  grid-gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-rows: auto; }
+
+.project > p {
+  margin: 0; }
+
+.project > a {
+  text-decoration: none;
+  color: black; }
+  .project > a > img {
+    width: 100%;
+    object-fit: cover;
+    transition: transform 300ms ease; }
+  .project > a > span {
+    display: inline-block;
+    position: relative;
+    margin: 10px 0 5px 0;
+    font-size: 1.1rem;
+    font-weight: 700; }
+    .project > a > span:after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      display: block;
+      height: 2px;
+      width: 0;
+      background-color: rgba(0, 0, 0, 0.4);
+      transition: width 300ms ease; }
+  .project > a:hover > img {
+    transform: scale(1.01); }
+  .project > a:hover > span:after {
+    content: "";
+    display: block;
+    width: 100%; }
+
+.otherProjects {
+  grid-area: other;
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-rows: auto; }
+
+.other {
+  padding: 10px;
+  color: black;
+  text-decoration: none;
+  border-radius: 4px;
+  background-color: #fcfcfc;
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5);
+  transition: all 200ms ease; }
+  .other:hover {
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+    transform: scale(1.01); }
+  .other > span {
+    font-size: 1.1rem; }
+  .other:visited > span {
+    color: red; }
 
 .playerWrapper {
+  display: none;
   width: 90vw;
+  height: 10vh;
   position: fixed;
   bottom: 0px;
   left: 50%;

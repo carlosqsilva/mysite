@@ -1,5 +1,5 @@
 // import background from './bgpattern.svg'
-import background from './background.svg'
+// import background from './background.svg'
 import github from './github.png'
 import instagram from './instagram.png'
 import linkedin from './linkedin.png'
@@ -12,7 +12,6 @@ import pause from './pause.png'
 import soundcloud from './soundcloud.png'
 
 export {
-  background,
   github,
   instagram,
   linkedin,

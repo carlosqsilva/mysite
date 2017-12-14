@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { previous, play, pause, next, soundcloud } from './assets'
+import { previous, play, pause, next, soundcloud } from '../assets'
 
 class Player extends Component {
   constructor(props) {
@@ -30,7 +30,7 @@ class Player extends Component {
   componentDidMount() {
     this.audio = new Audio()
     this.audio.crossOrigin = 'anonymous'  
-    this.loadPlaylist(this.play)
+    // this.loadPlaylist(this.play)
 
     if (this.controls) {
       navigator.mediaSession.playbackState = "Carregando media..."
