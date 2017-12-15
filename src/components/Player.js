@@ -1,22 +1,23 @@
 import React, { Component } from 'react'
-import { previous, play, pause, next, soundcloud } from '../assets'
+import { previous, play, pause, next } from '../assets'
+
+const padZero = (num, size) => {
+  let s = String(num);
+  while (s.length < size) {
+    s = `0${s}`;
+  }
+  return s;
+};
+
+const formatSeconds = (num) => {
+  const minutes = padZero(Math.floor(num / 60), 2);
+  const seconds = padZero(num % 60, 2);
+  return `${minutes}:${seconds}`;
+};
 
 class Player extends Component {
   constructor(props) {
     super(props)
-    this.client_id = "x3d1i5dxXwTtUNJAy8djMDh7yYdxSZX0"
-    this.playlist = "https://soundcloud.com/carlos-silva-527/sets/website"
-    this.state = {
-      isPlaying: false,
-      title: "",
-      titleUrl: "",
-      user: "",
-      userUrl: ""
-    }
-    this.audio = null
-    this.song = null
-    this.songs = null
-    this.controls = "mediaSession" in navigator
 
     this.loadPlaylist = this.loadPlaylist.bind(this)
     this.play = this.play.bind(this)
@@ -24,13 +25,30 @@ class Player extends Component {
     this.playPrevious = this.playPrevious.bind(this)
     this.toggle = this.toggle.bind(this)
     this.isPlaying = this.isPlaying.bind(this)
+    this.onTimeUpdate = this.onTimeUpdate.bind(this)
     this.shouldPlay = this.shouldPlay.bind(this)
+
+    this.client_id = "x3d1i5dxXwTtUNJAy8djMDh7yYdxSZX0"
+    this.playlist = "https://soundcloud.com/carlos-silva-527/sets/website"
+    this.state = {
+      isPlaying: false,
+      title: "",
+      titleUrl: "",
+      user: "",
+      userUrl: "",
+      duration: 0,
+      currentTime: 0,
+    }
+    this.audio = null
+    this.song = null
+    this.songs = null
+    this.controls = "mediaSession" in navigator
   }
 
   componentDidMount() {
     this.audio = new Audio()
     this.audio.crossOrigin = 'anonymous'  
-    // this.loadPlaylist(this.play)
+    this.loadPlaylist()
 
     if (this.controls) {
       navigator.mediaSession.playbackState = "Carregando media..."
@@ -39,10 +57,16 @@ class Player extends Component {
       navigator.mediaSession.setActionHandler('pause', this.toggle)
       navigator.mediaSession.setActionHandler('nexttrack', this.playNext)
     }
-
+    this.audio.addEventListener("timeupdate", this.onTimeUpdate)
     this.audio.addEventListener("ended", this.playNext)
     this.audio.addEventListener("pause", this.isPlaying)    
     this.audio.addEventListener("play", this.isPlaying)
+  }
+  componentWillUnmount() {
+    this.audio.removeEventListener("timeupdate", this.onTimeUpdate)
+    this.audio.removeEventListener("ended", this.playNext)
+    this.audio.removeEventListener("pause", this.isPlaying)    
+    this.audio.removeEventListener("play", this.isPlaying)
   }
 
   async shouldPlay() {
@@ -76,32 +100,34 @@ class Player extends Component {
     return battery || memory || connection
   }
 
-  loadPlaylist(callback = null) {
+  loadPlaylist() {
     let url = `https://api.soundcloud.com/resolve.json?url=${this.playlist}&client_id=${this.client_id}`
     const _this = this
 
-    fetch(url).then(resp => resp.json())
-      .then(data => {
+    fetch(url)
+    .then(resp => resp.json())
+    .then(data => {
 
-        _this.songs = data.tracks.map(track => {
-          return {
-            title: track.title,
-            titleUrl: track.permalink_url,
-            user: track.user.username,
-            userUrl: track.user.permalink_url,
-            artwork: track.artwork_url,
-            stream: track.stream_url
-          }
-        })
-
-        if (callback) {
-          callback()
+      _this.songs = data.tracks.map(track => {
+        return {
+          title: track.title,
+          titleUrl: track.permalink_url,
+          user: track.user.username,
+          userUrl: track.user.permalink_url,
+          artwork: track.artwork_url,
+          stream: track.stream_url
         }
-
       })
+    })
+    .then( _ => this.shouldPlay())
+    .then( condition => {
+      if (!condition) {
+        this.play()
+      }
+    })
   }
 
-  async play(song = null) {
+  play(song = null) {
 
     if (song === null) {
       song = Math.floor(Math.random() * this.songs.length)
@@ -130,13 +156,11 @@ class Player extends Component {
         title: currentSong.title,
         userUrl: currentSong.userUrl,
         user: currentSong.user,
+        artwork: currentSong.artwork
       })
     }
     
-    if (!await this.shouldPlay()) {
-      this.audio.play()
-    }
-
+    // this.audio.play()
     this.song = song
   }
 
@@ -160,25 +184,55 @@ class Player extends Component {
 
   isPlaying() {
     this.setState({
-      isPlaying: !this.audio.paused
+      isPlaying: !this.audio.paused,
+      duration: Math.floor(this.audio.duration),
+    })
+  }
+
+  onTimeUpdate () {
+    this.setState({
+      currentTime: Math.floor(this.audio.currentTime)
     })
   }
 
   render() {
+    const { currentTime, duration} = this.state
+    const width = `${(currentTime / duration) * 100}%`
+
     return (
-      <div className="playerWrapper">
-        <div className="playerButtons">
-          <button onClick={this.playPrevious} ><img src={previous} alt="" /></button>
-          <button onClick={this.toggle} ><img src={this.state.isPlaying ? pause : play} alt="" /></button>
-          <button onClick={this.playNext} ><img src={next} alt="" /></button>
-        </div>
-        <div className="playerInfo">
-          <a href="https://soundcloud.com" >
-            <img src={soundcloud} alt="" /> SOUNDCLOUD{" "}
-          </a>
-          <a href={this.state.titleUrl}>{this.state.title}{" "}</a>
-          by
-          <a href={this.state.userUrl}>{" "}{this.state.user}</a>
+      <div className="player--wrapper">
+        <div className="player--inner_wrapper">
+
+          <div className="player--song" >
+            <img className="player--artwork" src={this.state.artwork} alt="" />
+            <div className="player--main" >
+              <a className="player--music" target="_blank" href={this.state.titleUrl}>{this.state.title}{" "}</a>
+              <a className="player--artist" target="_blank" href={this.state.userUrl}>{" "}{this.state.user}</a>
+            </div>
+          </div>
+
+          <div className="player--buttons">
+            <button onClick={this.playPrevious} ><img src={previous} alt="" /></button>
+            <button onClick={this.toggle} ><img src={this.state.isPlaying ? pause : play} alt="" /></button>
+            <button onClick={this.playNext} ><img src={next} alt="" /></button>
+          </div>
+
+          <div className="player--slider">
+            <div className="player--slider_bar" >
+              <div className="player--slider_fill" style={{ width }} ></div>
+            </div>
+          </div>
+
+          <div className="player--time" >
+            <div className="player--time_wrapper">
+              {formatSeconds(this.state.currentTime)}
+              <div className="player--time_separator">
+                /
+              </div>
+              {formatSeconds(this.state.duration)}
+            </div>
+          </div>
+
         </div>
       </div>
     )
