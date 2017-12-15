@@ -26,6 +26,7 @@ class Player extends Component {
     this.toggle = this.toggle.bind(this)
     this.isPlaying = this.isPlaying.bind(this)
     this.onTimeUpdate = this.onTimeUpdate.bind(this)
+    this.onLoadedMetaData = this.onLoadedMetaData.bind(this)
     this.shouldPlay = this.shouldPlay.bind(this)
 
     this.client_id = "x3d1i5dxXwTtUNJAy8djMDh7yYdxSZX0"
@@ -58,12 +59,14 @@ class Player extends Component {
       navigator.mediaSession.setActionHandler('nexttrack', this.playNext)
     }
     this.audio.addEventListener("timeupdate", this.onTimeUpdate)
+    this.audio.addEventListener("loadedmetadata", this.onLoadedMetaData)
     this.audio.addEventListener("ended", this.playNext)
     this.audio.addEventListener("pause", this.isPlaying)    
     this.audio.addEventListener("play", this.isPlaying)
   }
   componentWillUnmount() {
     this.audio.removeEventListener("timeupdate", this.onTimeUpdate)
+    this.audio.removeEventListener("loadedmetadata", this.onLoadedMetaData)
     this.audio.removeEventListener("ended", this.playNext)
     this.audio.removeEventListener("pause", this.isPlaying)    
     this.audio.removeEventListener("play", this.isPlaying)
@@ -160,7 +163,7 @@ class Player extends Component {
       })
     }
     
-    // this.audio.play()
+    this.audio.play()
     this.song = song
   }
 
@@ -185,7 +188,12 @@ class Player extends Component {
   isPlaying() {
     this.setState({
       isPlaying: !this.audio.paused,
-      duration: Math.floor(this.audio.duration),
+    })
+  }
+
+  onLoadedMetaData() {
+    this.setState({
+      duration: Math.floor(this.audio.duration)
     })
   }
 

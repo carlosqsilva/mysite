@@ -121,7 +121,7 @@ html, body {
 .projectWrapper {
   display: grid;
   grid-template-columns: minmax(10px, 1fr) minmax(200px, 1000px) minmax(10px, 1fr);
-  grid-template-rows: 140px auto 120px;
+  grid-template-rows: 140px auto 120px auto 70px;
   grid-template-areas: ".  p1      ." ".  project ." ".  p2      ." ".  other   .";
   background-color: #FDFDFD;
   background-image: url("../assets/bg_03.svg");
