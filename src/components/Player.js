@@ -15,6 +15,20 @@ const formatSeconds = (num) => {
   return `${minutes}:${seconds}`;
 };
 
+const debounce = (fn, wait) => {
+  let timeout=null;
+  const c=()=>{ clearTimeout(timeout); timeout=null; };
+  const t=fn=>{ timeout=setTimeout(fn,wait); };
+  return ()=>{
+      const context=this;
+      const args=arguments;
+      let f=()=>{ fn.apply(context,args); };
+      timeout
+          ? c()||t(f)
+          : t(c)||f();
+  }
+}
+
 class Player extends Component {
   constructor(props) {
     super(props)
@@ -28,22 +42,26 @@ class Player extends Component {
     this.onTimeUpdate = this.onTimeUpdate.bind(this)
     this.onLoadedMetaData = this.onLoadedMetaData.bind(this)
     this.shouldPlay = this.shouldPlay.bind(this)
+    this.innerWidth = this.innerWidth.bind(this)
 
     this.client_id = "x3d1i5dxXwTtUNJAy8djMDh7yYdxSZX0"
     this.playlist = "https://soundcloud.com/carlos-silva-527/sets/website"
+    this.audio = null
+    this.song = null
+    this.songs = null
+    this.controls = "mediaSession" in navigator
+    
     this.state = {
       isPlaying: false,
       title: "",
       titleUrl: "",
       user: "",
       userUrl: "",
+      artwork: "",
       duration: 0,
       currentTime: 0,
+      innerWidth: window.innerWidth
     }
-    this.audio = null
-    this.song = null
-    this.songs = null
-    this.controls = "mediaSession" in navigator
   }
 
   componentDidMount() {
@@ -52,24 +70,34 @@ class Player extends Component {
     this.loadPlaylist()
 
     if (this.controls) {
-      navigator.mediaSession.playbackState = "Carregando media..."
+      navigator.mediaSession.playbackState = "paused"
       navigator.mediaSession.setActionHandler('previoustrack', this.playPrevious)
       navigator.mediaSession.setActionHandler('play', this.toggle)
       navigator.mediaSession.setActionHandler('pause', this.toggle)
       navigator.mediaSession.setActionHandler('nexttrack', this.playNext)
     }
+
     this.audio.addEventListener("timeupdate", this.onTimeUpdate)
     this.audio.addEventListener("loadedmetadata", this.onLoadedMetaData)
     this.audio.addEventListener("ended", this.playNext)
     this.audio.addEventListener("pause", this.isPlaying)    
     this.audio.addEventListener("play", this.isPlaying)
+    window.addEventListener("resize", debounce(this.innerWidth, 250))
   }
+
   componentWillUnmount() {
+    window.removeEventListener("resize", debounce(this.innerWidth, 250))
     this.audio.removeEventListener("timeupdate", this.onTimeUpdate)
     this.audio.removeEventListener("loadedmetadata", this.onLoadedMetaData)
     this.audio.removeEventListener("ended", this.playNext)
     this.audio.removeEventListener("pause", this.isPlaying)    
     this.audio.removeEventListener("play", this.isPlaying)
+  }
+
+  innerWidth() {
+    this.setState({
+      innerWidth: window.innerWidth
+    })
   }
 
   async shouldPlay() {
@@ -142,6 +170,17 @@ class Player extends Component {
       this.audio.src = `${currentSong.stream}?client_id=${this.client_id}`
     }
     
+    this.setState({
+      titleUrl: currentSong.titleUrl,
+      title: currentSong.title,
+      userUrl: currentSong.userUrl,
+      user: currentSong.user,
+      artwork: currentSong.artwork
+    })
+
+    this.audio.play()
+    this.song = song
+
     if (this.controls) {
       /* eslint-disable */
       navigator.mediaSession.metadata = new MediaMetadata({
@@ -153,18 +192,7 @@ class Player extends Component {
         ]
       })
       /* eslint-enable */
-    } else {
-      this.setState({
-        titleUrl: currentSong.titleUrl,
-        title: currentSong.title,
-        userUrl: currentSong.userUrl,
-        user: currentSong.user,
-        artwork: currentSong.artwork
-      })
-    }
-    
-    this.audio.play()
-    this.song = song
+    }    
   }
 
   playNext() {
@@ -214,8 +242,8 @@ class Player extends Component {
           <div className="player--song" >
             <img className="player--artwork" src={this.state.artwork} alt="" />
             <div className="player--main" >
-              <a className="player--music" target="_blank" href={this.state.titleUrl}>{this.state.title}{" "}</a>
-              <a className="player--artist" target="_blank" href={this.state.userUrl}>{" "}{this.state.user}</a>
+              <a className="player--music" target="_blank" href={this.state.titleUrl}>{this.state.title}</a>
+              <a className="player--artist" target="_blank" href={this.state.userUrl}>{this.state.user}</a>
             </div>
           </div>
 
@@ -225,21 +253,27 @@ class Player extends Component {
             <button onClick={this.playNext} ><img src={next} alt="" /></button>
           </div>
 
-          <div className="player--slider">
-            <div className="player--slider_bar" >
-              <div className="player--slider_fill" style={{ width }} ></div>
-            </div>
-          </div>
-
-          <div className="player--time" >
-            <div className="player--time_wrapper">
-              {formatSeconds(this.state.currentTime)}
-              <div className="player--time_separator">
-                /
+          {
+            this.state.innerWidth > 900 &&
+            <div className="player--slider">
+              <div className="player--slider_bar" >
+                <div className="player--slider_fill" style={{ width }} ></div>
               </div>
-              {formatSeconds(this.state.duration)}
             </div>
-          </div>
+          }
+
+          {
+            this.state.innerWidth > 700 &&
+            <div className="player--time" >
+              <div className="player--time_wrapper">
+                {formatSeconds(this.state.currentTime)}
+                <div className="player--time_separator">
+                  /
+                </div>
+                {formatSeconds(this.state.duration)}
+              </div>
+            </div>
+          }
 
         </div>
       </div>

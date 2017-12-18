@@ -56,7 +56,7 @@ $bg-project: #FDFDFD;
 
   --size: calc(6rem + 4vw);
   width: var(--size);
-  height: auto;
+  height: var(--size);
   margin-bottom: calc(-1* var(--size) / 2);
 }
 
@@ -258,7 +258,7 @@ $bg-project: #FDFDFD;
 }
 
 .player--song {
-  width: 400px;
+  width: 422px;
   height: 100%;
   overflow: hidden;
   display: flex;
@@ -322,7 +322,6 @@ $bg-project: #FDFDFD;
 }
 
 .player--slider {
-  display: none;
   margin-left: 30px;
   flex: 1;
   
@@ -340,7 +339,6 @@ $bg-project: #FDFDFD;
 }
 
 .player--time {
-  display: none;
   margin: 0 30px;
 
   .player--time_wrapper {
@@ -356,9 +354,9 @@ $bg-project: #FDFDFD;
   }
 }
 
-@media screen and (min-width: 530px) {
+@media screen and (min-width: 600px) {
   .player--song {
-    background-color: #fff;
+    background-color: #FDFDFD;
     
     .player--main {
       
@@ -371,22 +369,5 @@ $bg-project: #FDFDFD;
       }
 
     }
-  }
-  
-  .player--time {
-    display: block;
-  }
-}
-
-@media screen and (min-width: 800px){
-  .player--slider {
-    display: block;
-    min-width: 80px;
-  }
-}
-
-@media screen and (min-width: 1200px){
-  .player--buttons {
-    margin-left: 30px;
   }
 }
