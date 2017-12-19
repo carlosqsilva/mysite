@@ -1,0 +1,120 @@
+.project--wrapper {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(200px, 1000px) minmax(0, 1fr);
+  background-color: #323232;
+
+  > div {
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    margin-top: -50px;
+    margin-bottom: 60px;
+    padding: 20px 10px;
+    border: 1px solid whitesmoke;
+    border-radius: 8px;
+
+    background-color: white;
+    background: url("../assets/bg_01.svg"), linear-gradient(to bottom,white 70%,whitesmoke);
+    background-size: 200px, cover;
+    z-index: 100;
+  }
+}
+
+.p1, .p2 {
+  font-size: 1.6rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+.cardProject {
+  grid-area: project;
+  display: grid;
+  grid-gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-rows: auto;
+}
+
+.project {
+  
+  > p {
+    margin: 0;
+  }
+  
+  > a {
+    text-decoration: none;
+    color: black;
+
+    > img {
+      width: 100%;
+      object-fit: cover;
+      transition: transform 300ms ease;
+    }
+    
+    > span {
+      display: inline-block;
+      position: relative;
+      margin: 10px 0 5px 0;
+      font-size: 1.1rem;
+      font-weight: 700;
+
+      &:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        display: block;
+        height: 2px;  
+        width: 0;
+        background-color: rgba(black, 0.4);
+        transition: width 300ms ease;
+      }
+    }
+    
+    &:hover {
+      > img {
+        transform: scale(1.01)
+      }
+      > span:after {
+        content: "";
+        display: block;
+        width: 100%;
+      }
+    }
+
+  }
+}
+
+.otherProjects {
+  grid-area: other;
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-rows: auto;
+}
+
+.other {
+  padding: 10px;
+  color: black;
+  text-decoration: none;
+  border-radius: 4px;
+  background-color: white;
+  box-shadow: 0px 0px 1px whitesmoke;
+  transition: all 200ms ease;
+  
+  &:hover {
+    box-shadow: 0px 10px 20px rgba(black, 0.2);
+    transform: scale(1.01)
+  }
+
+  > span {
+    font-size: 1.1rem;
+  }
+      
+  &:visited {
+    > span {
+      color: red;
+    }
+  }
+}

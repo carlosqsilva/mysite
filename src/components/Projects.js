@@ -47,35 +47,40 @@ const myprojects = {
 
 const Projects = () => {
   return (
-    <section className="projectWrapper">
-      <h2 className="p1">Projetos Recentes</h2>
+    <section className="project--wrapper">
 
-      <div className="cardProject">
-        {
-          myprojects.last.map( (project, i) => 
-            <div className="project" key={i}>
-              <a href={project.link} target="_blank">
-                <img src="http://via.placeholder.com/550x380" alt="" />
-                <span>{project.name}</span>
-              </a>
-              
-              <p>{project.description}</p>
-            </div>
-          )
-        }        
-      </div>
-      
-      <h2 className="p2">Outros Projetos</h2>
-      
-      <div className="otherProjects">
+      <div>
+
+        <h2 className="p1">Projetos Recentes</h2>
+
+        <div className="cardProject">
           {
-            myprojects.other.map( (project, i) =>
-              <a className="other" key={i} href={project.link} target="_blank">
-                <span >{project.name}</span>
+            myprojects.last.map( (project, i) => 
+              <div className="project" key={i}>
+                <a href={project.link} target="_blank">
+                  <img src="http://via.placeholder.com/550x380" alt="" />
+                  <span>{project.name}</span>
+                </a>
+                
                 <p>{project.description}</p>
-              </a>
+              </div>
             )
-          }
+          }        
+        </div>
+        
+        <h2 className="p2">Outros Projetos</h2>
+        
+        <div className="otherProjects">
+            {
+              myprojects.other.map( (project, i) =>
+                <a className="other" key={i} href={project.link} target="_blank">
+                  <span >{project.name}</span>
+                  <p>{project.description}</p>
+                </a>
+              )
+            }
+        </div>
+      
       </div>
 
     </section>

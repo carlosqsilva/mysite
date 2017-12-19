@@ -1,66 +1,30 @@
 import React from 'react';
-import { github, linkedin, instagram, mail, picture } from '../assets';
-
-const profile = {
-  name: "Carlos Silva",
-  age: 24,
-  social: [
-    {
-      title: "Github",
-      link: "https://github.com/carlosqsilva",
-      logo: github
-    },
-    {
-      title: "Linkedin",
-      link: "https://github.com/carlosqsilva",
-      logo: linkedin
-    },
-    {
-      title: "Instagram",
-      link: "https://www.instagram.com/carloshenj/",
-      logo: instagram
-    },
-    {
-      title: "Quer Conversar?",
-      link: "mailto:carlosqsilva@outlook.com",
-      logo: mail
-    }
-  ]
-}
+import { videowebm, videomp4 } from "../assets"
 
 const Home = () => {
-  const {
-    name,
-    age,
-    social
-  } = profile
-
+  
   return (
-    <section className="homeWrapper">
+    <section className="intro--wrapper">
 
-      <div className="cardWrapper">
-              
-        <img  className="profilePicture" src={picture} alt="" />
-        
-        <div className="card">
+      <video autoplay="true" loop>
+        <source src={videowebm} type="video/webm" />
+        <source src={videomp4} type="video/mp4" />
+      </video>
 
-          <p>Olá, sou <span>{name}</span>, tenho {age} anos e moro em Ananindeua, Pará.</p>
-          <p>Sou formado em Engenharia de Produção e atualmente faço Pós-Graduação em Engenharia de Software.</p>
-          <div className="socialWrapper">
-            <span />
-            {
-              social.map((social, i) =>
-                <a className="socialIcons" href={social.link} key={i} target="_blank"  rel="noopener">
-                  <img src={social.logo} alt={social.title}/>
-                </a>
-              )
-            }
-            <span />
-          </div>
+      <div className="intro--container">
 
+        <h1 className="intro--name">CARLOS SILVA</h1>
+
+        <p className="intro--desc">I'm 24 years old, from Brazil. I have a bachelor degree in Production Engineering and getting a major in software engineering.</p>
+
+        <div className="social">
+          <a href="https://github.com/carlosqsilva" target="_blank"  rel="noopener noreferrer">Github</a>
+          <a href="https://github.com/carlosqsilva" target="_blank"  rel="noopener noreferrer">Linkedin</a>
+          <a href="mailto:carlosqsilva@outlook.com" target="_blank"  rel="noopener noreferrer">Email</a>
         </div>
-        
+      
       </div>
+        
     </section>
   )
 }

@@ -1,0 +1,98 @@
+.player--wrapper {
+  width: 100vw;
+  height: 3rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: #FDFDFD;
+  display: grid;
+  grid-template-columns: minmax(0px, 1fr) minmax(200px, 1000px) minmax(0px, 1fr);
+  z-index: 999; }
+  @media (display-mode: standalone) {
+    .player--wrapper {
+      display: none; } }
+
+.player--inner_wrapper {
+  height: 48px;
+  grid-column: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+
+.player--song {
+  width: 422px;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #2b2b2b; }
+  .player--song .player--artwork {
+    width: 48px;
+    height: 48px; }
+  .player--song > .player--main {
+    flex: 1;
+    margin-left: 8px;
+    overflow: hidden; }
+    .player--song > .player--main .player--music {
+      color: #fff; }
+    .player--song > .player--main .player--artist {
+      color: #fff; }
+    .player--song > .player--main .player--music, .player--song > .player--main .player--artist {
+      display: block;
+      text-decoration: none;
+      text-align: left;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      font-size: .8rem; }
+
+.player--buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .player--buttons > button {
+    width: 48px;
+    height: 48px;
+    border: none;
+    background: none;
+    outline: none;
+    padding: 15px;
+    cursor: pointer; }
+    .player--buttons > button:hover {
+      background-color: #888; }
+    .player--buttons > button > img {
+      width: 100%;
+      height: 100%; }
+
+.player--slider {
+  margin-left: 30px;
+  flex: 1; }
+  .player--slider .player--slider_bar {
+    width: 100%;
+    height: 2px;
+    background-color: #ddd;
+    outline: none; }
+  .player--slider .player--slider_fill {
+    height: 100%;
+    background-color: #7ec57c; }
+
+.player--time {
+  margin: 0 30px; }
+  .player--time .player--time_wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: .7rem;
+    color: #777; }
+  .player--time .player--time_separator {
+    margin: 0 10px; }
+
+@media screen and (min-width: 600px) {
+  .player--song {
+    background-color: #FDFDFD; }
+    .player--song .player--main .player--music {
+      color: #222; }
+    .player--song .player--main .player--artist {
+      color: #3381b7; } }

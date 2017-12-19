@@ -1,23 +1,13 @@
-// import background from './bgpattern.svg'
-// import background from './background.svg'
-import github from './github.png'
-import instagram from './instagram.png'
-import linkedin from './linkedin.png'
-import mail from './mail.png'
-import picture from './profile.JPG'
 import previous from './previous.svg'
 import next from './next.svg'
 import play from './play.svg'
 import pause from './pause.png'
-import soundcloud from './soundcloud.png'
+import videomp4 from './background.mp4'
+import videowebm from './background.webm'
 
 export {
-  github,
-  instagram,
-  linkedin,
-  mail,
-  soundcloud,
-  picture,
+  videomp4,
+  videowebm,
   previous,
   next,
   play,
