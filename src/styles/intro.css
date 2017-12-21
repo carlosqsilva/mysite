@@ -4,7 +4,7 @@
   position: relative;
   overflow: hidden;
   height: 90vh;
-  background: linear-gradient(to bottom, transparent 70%, #323232), url("../assets/graph-paper.svg");
+  background: linear-gradient(to bottom, transparent 70%, #111111), url("../assets/graph-paper.svg");
   background-size: cover, 200px; }
   .intro--wrapper > video {
     position: absolute;

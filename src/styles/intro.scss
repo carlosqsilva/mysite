@@ -5,7 +5,7 @@
   overflow: hidden;
 
   height: 90vh;
-  background: linear-gradient(to bottom, transparent 70%, rgba($color: #323232, $alpha: 1.0)), url("../assets/graph-paper.svg");
+  background: linear-gradient(to bottom, transparent 70%, rgba($color: #111111, $alpha: 1.0)), url("../assets/graph-paper.svg");
   background-size: cover, 200px;
 
   > video {

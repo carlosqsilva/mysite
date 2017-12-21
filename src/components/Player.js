@@ -242,8 +242,8 @@ class Player extends Component {
           <div className="player--song" >
             <img className="player--artwork" src={this.state.artwork} alt="" />
             <div className="player--main" >
-              <a className="player--music" target="_blank" href={this.state.titleUrl}>{this.state.title}</a>
-              <a className="player--artist" target="_blank" href={this.state.userUrl}>{this.state.user}</a>
+              <a className="player--music" target="_blank" rel="noopener noreferrer" href={this.state.titleUrl}>{this.state.title}</a>
+              <a className="player--artist" target="_blank" rel="noopener noreferrer" href={this.state.userUrl}>{this.state.user}</a>
             </div>
           </div>
 

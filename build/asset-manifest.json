@@ -1,12 +1,15 @@
 {
-  "main.css": "static/css/main.73b3fee8.css",
-  "main.css.map": "static/css/main.73b3fee8.css.map",
-  "main.js": "static/js/main.f546f776.js",
-  "main.js.map": "static/js/main.f546f776.js.map",
-  "static/media/bg_01.svg": "static/media/bg_01.00627c2a.svg",
-  "static/media/bg_03.svg": "static/media/bg_03.395ed827.svg",
+  "main.css": "static/css/main.dde1e053.css",
+  "main.css.map": "static/css/main.dde1e053.css.map",
+  "main.js": "static/js/main.b1e25e91.js",
+  "main.js.map": "static/js/main.b1e25e91.js.map",
+  "static/media/background.mp4": "static/media/background.8192241f.mp4",
+  "static/media/background.webm": "static/media/background.48f240a3.webm",
+  "static/media/bg_01.svg": "static/media/bg_01.1050af07.svg",
+  "static/media/graph-paper.svg": "static/media/graph-paper.35d21adf.svg",
   "static/media/next.svg": "static/media/next.79141bde.svg",
   "static/media/play.svg": "static/media/play.3ac1ca2f.svg",
   "static/media/previous.svg": "static/media/previous.270b1afe.svg",
-  "static/media/profile.JPG": "static/media/profile.b122d2b3.JPG"
+  "static/media/shot1.png": "static/media/shot1.0a2e5514.png",
+  "static/media/shot2.png": "static/media/shot2.d5aa5fc9.png"
 }

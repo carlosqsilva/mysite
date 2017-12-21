@@ -1,4 +1,5 @@
 import React from "react"
+import { screen1, screen2 } from "../assets"
 
 const myprojects = {
   last:[
@@ -6,13 +7,15 @@ const myprojects = {
       name: "CCharts Online",
       description: "Plot quality control charts online",
       link: "https://carlosqsilva.github.io/ccharts-online/",
-      tech: ["Reactjs", "Redux", "Chartjs"]
+      tech: ["Reactjs", "Redux", "Chartjs"],
+      shot: screen1
     },
     {
       name: "Astronomy Picture of the Day",
       description: "Uses Nasa APOD api to display new Astronomy picture every day",
       link: "https://carlosqsilva.github.io/Astronomy-Picture-of-the-Day/",
-      tech: ["Vuejs", "Bulma"]
+      tech: ["Vuejs", "Bulma"],
+      shot: screen2
     }
   ],
   other: [
@@ -51,36 +54,36 @@ const Projects = () => {
 
       <div>
 
-        <h2 className="p1">Projetos Recentes</h2>
+        <h2 className="header">Recent Projects</h2>
 
         <div className="cardProject">
           {
             myprojects.last.map( (project, i) => 
               <div className="project" key={i}>
-                <a href={project.link} target="_blank">
-                  <img src="http://via.placeholder.com/550x380" alt="" />
+                <a href={project.link} target="_blank" rel="noopener noreferrer" >
+                  <img src={project.shot} alt="" />
                   <span>{project.name}</span>
+                  <p>{project.description}</p>
                 </a>
-                
-                <p>{project.description}</p>
               </div>
             )
           }        
         </div>
         
-        <h2 className="p2">Outros Projetos</h2>
+        <h2 className="header">Other Projects</h2>
         
         <div className="otherProjects">
             {
               myprojects.other.map( (project, i) =>
-                <a className="other" key={i} href={project.link} target="_blank">
+                <a className="other" key={i} href={project.link} target="_blank" rel="noopener noreferrer" >
                   <span >{project.name}</span>
                   <p>{project.description}</p>
                 </a>
               )
             }
         </div>
-      
+
+        <span className="author">Develop by: Carlos Silva 2017</span>
       </div>
 
     </section>

@@ -1,7 +1,7 @@
 .project--wrapper {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(200px, 1000px) minmax(0, 1fr);
-  background-color: #323232;
+  grid-template-columns: minmax(0, 1fr) minmax(200px, 1200px) minmax(0, 1fr);
+  background-color: #111111;
 
   > div {
     grid-column: 2;
@@ -9,9 +9,11 @@
     flex-direction: column;
     justify-content: flex-start;
 
+    position: relative;
+
     margin-top: -50px;
     margin-bottom: 60px;
-    padding: 20px 10px;
+    padding: 20px 15px;
     border: 1px solid whitesmoke;
     border-radius: 8px;
 
@@ -22,10 +24,8 @@
   }
 }
 
-.p1, .p2 {
-  font-size: 1.6rem;
-  display: inline-flex;
-  align-items: center;
+.header {
+  font-size: calc(1.5rem + .3vw);
 }
 
 .cardProject {
@@ -34,22 +34,23 @@
   grid-gap: 30px;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-template-rows: auto;
+  margin-bottom: 20px;
 }
 
 .project {
-  
-  > p {
-    margin: 0;
-  }
-  
+    
   > a {
     text-decoration: none;
     color: black;
-
+    
     > img {
       width: 100%;
       object-fit: cover;
-      transition: transform 300ms ease;
+      border-radius: 4px;
+      border: 1px solid whitesmoke;
+      overflow: hidden;
+      filter: grayscale(100%);
+      transition: all 200ms ease;
     }
     
     > span {
@@ -58,7 +59,7 @@
       margin: 10px 0 5px 0;
       font-size: 1.1rem;
       font-weight: 700;
-
+      
       &:after {
         content: "";
         position: absolute;
@@ -72,9 +73,13 @@
       }
     }
     
+    > p {
+      margin: 0;
+    }
+
     &:hover {
       > img {
-        transform: scale(1.01)
+        filter: grayscale(0);
       }
       > span:after {
         content: "";
@@ -110,6 +115,7 @@
 
   > span {
     font-size: 1.1rem;
+    font-weight: 700;
   }
       
   &:visited {
@@ -117,4 +123,11 @@
       color: red;
     }
   }
+}
+
+.author {
+  font-size: .7rem;
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
 }
