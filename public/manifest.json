@@ -1,6 +1,6 @@
 {
   "short_name": "Carlos Silva",
-  "name": "Site Fodastico do Carlos",
+  "name": "Carlos Personal Website",
   "icons": [
     {
       "src": "icon.png",
@@ -11,6 +11,6 @@
   "start_url": "./index.html",
   "display": "standalone",
   "orientation": "portrait",
-  "theme_color": "#A13939",
-  "background_color": "#A13939"
+  "theme_color": "#000000",
+  "background_color": "#000000"
 }

@@ -11,14 +11,28 @@ import './styles/app.css'
 
 const Fragment = React.Fragment;
 
-const App = () => {
-  return (
-    <Fragment>
-      <Home />
-      <Projects />
-      <Player />
-    </Fragment>
-  )
+class App extends React.Component {
+  componentDidMount() {
+    const ele = document.getElementById("loader")
+    if (ele) {
+      setTimeout( () => {
+        ele.classList.add("ready")
+        setTimeout( () => {
+          ele.outerHTML = ''
+        }, 4000)
+      }, 3000)
+    }
+  }
+
+  render() {
+    return (
+      <Fragment>
+        <Home />
+        <Projects />
+        <Player />
+      </Fragment>
+    )
+  }
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));

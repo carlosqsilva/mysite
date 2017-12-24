@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <section className="intro--wrapper">
 
-      <video autoplay="true" loop>
+      <video autoPlay="true" loop>
         <source src={videowebm} type="video/webm" />
         <source src={videomp4} type="video/mp4" />
       </video>
@@ -19,7 +19,7 @@ const Home = () => {
 
         <div className="social">
           <a href="https://github.com/carlosqsilva" target="_blank"  rel="noopener noreferrer">Github</a>
-          <a href="https://github.com/carlosqsilva" target="_blank"  rel="noopener noreferrer">Linkedin</a>
+          <a href="https://www.linkedin.com/in/carlosqsilva" target="_blank"  rel="noopener noreferrer">Linkedin</a>
           <a href="mailto:carlosqsilva@outlook.com" target="_blank"  rel="noopener noreferrer">Email</a>
         </div>
       

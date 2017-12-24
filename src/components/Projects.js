@@ -7,14 +7,14 @@ const myprojects = {
       name: "CCharts Online",
       description: "Plot quality control charts online",
       link: "https://carlosqsilva.github.io/ccharts-online/",
-      tech: ["Reactjs", "Redux", "Chartjs"],
+      tech: "Reactjs Redux Chartjs",
       shot: screen1
     },
     {
       name: "Astronomy Picture of the Day",
       description: "Uses Nasa APOD api to display new Astronomy picture every day",
       link: "https://carlosqsilva.github.io/Astronomy-Picture-of-the-Day/",
-      tech: ["Vuejs", "Bulma"],
+      tech: "Vuejs Bulma",
       shot: screen2
     }
   ],
@@ -62,7 +62,8 @@ const Projects = () => {
               <div className="project" key={i}>
                 <a href={project.link} target="_blank" rel="noopener noreferrer" >
                   <img src={project.shot} alt="" />
-                  <span>{project.name}</span>
+                  <span className="project--title">{project.name}</span>
+                  <span className="project--tech">{project.tech}</span>
                   <p>{project.description}</p>
                 </a>
               </div>
@@ -83,7 +84,7 @@ const Projects = () => {
             }
         </div>
 
-        <span className="author">Develop by: Carlos Silva 2017</span>
+        <span className="author">Developed by: Carlos Silva 2017</span>
       </div>
 
     </section>

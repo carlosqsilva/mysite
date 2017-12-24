@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,700');
 
 *, *:before, *:after {
-  box-sizing: border-box;
+	box-sizing: border-box;
+	backface-visibility: hidden;
 }
 
 html, body {

@@ -77,7 +77,7 @@ class Player extends Component {
       navigator.mediaSession.setActionHandler('nexttrack', this.playNext)
     }
 
-    this.audio.addEventListener("timeupdate", this.onTimeUpdate)
+    this.audio.addEventListener("timeupdate", debounce(this.onTimeUpdate, 250))
     this.audio.addEventListener("loadedmetadata", this.onLoadedMetaData)
     this.audio.addEventListener("ended", this.playNext)
     this.audio.addEventListener("pause", this.isPlaying)    
@@ -87,7 +87,7 @@ class Player extends Component {
 
   componentWillUnmount() {
     window.removeEventListener("resize", debounce(this.innerWidth, 250))
-    this.audio.removeEventListener("timeupdate", this.onTimeUpdate)
+    this.audio.removeEventListener("timeupdate", debounce(this.onTimeUpdate, 250))
     this.audio.removeEventListener("loadedmetadata", this.onLoadedMetaData)
     this.audio.removeEventListener("ended", this.playNext)
     this.audio.removeEventListener("pause", this.isPlaying)    
@@ -178,7 +178,7 @@ class Player extends Component {
       artwork: currentSong.artwork
     })
 
-    this.audio.play()
+    // this.audio.play()
     this.song = song
 
     if (this.controls) {

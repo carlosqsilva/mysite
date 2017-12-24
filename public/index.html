@@ -17,11 +17,8 @@
     
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.png">
-    <!--
-      manifest.json provides metadata used when your web app is added to the
-      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
-    -->
-
+    
+    <meta name="author" content="Carlos Henrique Silva">
     <!-- APPLE web app meta -->
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/icon.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -29,6 +26,7 @@
     
     <title>Carlos Silva</title>
     <meta name="description" content="Carlos Silva Engenheiro de Produção e Pós-graduando em Engenharia de Software.">
+    <meta name="keywords" content="Carlos, Desenvolvedor, Engenharia, React, Javascript">
     <!-- Facebook Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://carloseng.com">
@@ -37,21 +35,63 @@
     <meta property="og:description" content="Carlos Silva Engenheiro de Produção e Pós-graduando em Engenharia de Software.">
     <meta property="og:site_name" content="Carlos Silva Website">
     <meta property="og:locale" content="pt_BR">
+
+    <style type="text/css">
+      .loader.ready {
+        opacity: 0;
+      }
+      .loader {
+        background-color: #f5f5f5;
+        position: fixed;
+        opacity: 1;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        pointer-events: none;
+        -webkit-transition: opacity cubic-bezier(.4, 0, .2, 1) 436ms;
+        -moz-transition: opacity cubic-bezier(.4, 0, .2, 1) 436ms;
+        transition: opacity cubic-bezier(.4, 0, .2, 1) 436ms;
+        z-index: 9999;
+      }
+    </style>
   </head>
   <body>
     <noscript>
       Você Precisa ativar o <br>JavaScript</br> em seu navegador, caso você não saiba o que é <br>JavaScript</br> faça um favor a si mesmo, e instale o <br>Google Chrome</br> ou <br>Mozilla Firefox</br> agora mesmo.
     </noscript>
+
+    <div class="loader" id="loader">
+      <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+         width="30px" height="30px" viewBox="0 0 30 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+        <rect x="0" y="13" width="6" height="10" fill="#FF6700">
+          <animate attributeName="height" attributeType="XML"
+            values="10;21;10" 
+            begin="0s" dur="0.6s" repeatCount="indefinite" />
+          <animate attributeName="y" attributeType="XML"
+            values="13; 5; 13"
+            begin="0s" dur="0.6s" repeatCount="indefinite" />
+        </rect>
+        <rect x="12" y="13" width="6" height="10" fill="#FF6700">
+          <animate attributeName="height" attributeType="XML"
+            values="10;21;10" 
+            begin="0.10s" dur="0.6s" repeatCount="indefinite" />
+          <animate attributeName="y" attributeType="XML"
+            values="13; 5; 13"
+            begin="0.10s" dur="0.6s" repeatCount="indefinite" />
+        </rect>
+        <rect x="24" y="13" width="6" height="10" fill="#FF6700">
+          <animate attributeName="height" attributeType="XML"
+            values="10;21;10" 
+            begin="0.20s" dur="0.6s" repeatCount="indefinite" />
+          <animate attributeName="y" attributeType="XML"
+            values="13; 5; 13"
+            begin="0.20s" dur="0.6s" repeatCount="indefinite" />
+        </rect>
+      </svg>
+    </div>
+
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
   </body>
 </html>
